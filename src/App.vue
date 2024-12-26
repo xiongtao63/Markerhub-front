@@ -1,9 +1,8 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div id="app">
+    <router-view/>
+  </div>
+
 </template>
 
 <style>
@@ -14,6 +13,7 @@
   text-align: center;
   color: #2c3e50;
 }
+
 
 nav {
   padding: 30px;
@@ -28,3 +28,32 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script>
+
+import router from "@/router";
+
+export default {
+  name: "App",
+  watch: {
+    $route(to, from) {
+
+      console.log("to")
+      console.log(router)
+      console.log(to)
+      console.log("from")
+      console.log(from)
+      if (to.path !== '/login') {
+        let obj = {
+          name: to.name,
+          title: to.meta.title
+        }
+
+        this.$store.commit("addTab", obj)
+      }
+
+    }
+  },
+
+}
+
+</script>
